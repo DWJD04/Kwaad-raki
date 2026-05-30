@@ -1,0 +1,247 @@
+/* =========================================
+   1. GLOBAL & TYPOGRAPHY
+   ========================================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* A nice dark blue gradient background for the whole screen */
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#status-msg {
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    margin-bottom: 5px;
+}
+
+#turn-indicator {
+    color: #f1c40f; /* Nice golden yellow for the active player */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+/* =========================================
+   2. MAIN GAME BOARD LAYOUT
+   ========================================= */
+#game-board {
+    background-color: #ecf0f1; /* Light gray to frame the play areas */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    padding: 25px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.board-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #bdc3c7;
+}
+
+.board-section2 {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Contains Hand, Stockpile, and Bank */
+.pile-container, .reserve-container, .player-hand-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+/* =========================================
+   3. THE BUILDING ZONE (The "Felt" Table)
+   ========================================= */
+#building-zone {
+    /* Casino green felt look */
+    background-color: #27ae60; 
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: inset 0 5px 15px rgba(0,0,0,0.4);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
+}
+
+#starting-pile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    background-color: #2c3e50;
+    width: 120px;
+    height: 100px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* =========================================
+   4. UNIVERSAL CARD STYLING
+   ========================================= */
+/* This targets hands, building pockets, bank slots, and stockpiles all at once */
+#player-hand div, 
+.building-pocket, 
+.bank-slot, 
+#stockpile-card {
+    width: 70px;
+    height: 100px;
+    background-color: #ffffff;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #2c3e50;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    cursor: grab;
+    user-select: none; /* Stops text from highlighting when dragging */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#player-hand {
+    display: flex;
+    gap: 12px;
+}
+
+/* Hover effects to make cards feel "liftable" */
+#player-hand div:hover,
+#stockpile-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+}
+
+#player-hand div:active {
+    cursor: grabbing;
+}
+
+/* Specific styling for EMPTY slots */
+.building-pocket[style*="dashed"],
+.bank-slot[style*="dashed"] {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
+    box-shadow: none;
+}
+.bank-slot[style*="dashed"] {
+    color: #7f8c8d;
+    border-color: #bdc3c7;
+}
+
+/* =========================================
+   5. THE BANK HOVER SYSTEM
+   ========================================= */
+.bank-wrapper {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    background-color: #3498db;
+    color: white;
+    border: 2px solid #2980b9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+.bank-wrapper:hover {
+    background-color: #2980b9;
+}
+
+.bank-slots-container {
+    display: none;
+    position: absolute;
+    top: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ecf0f1;
+    border: 2px solid #bdc3c7;
+    padding: 15px;
+    gap: 12px;
+    z-index: 100;
+    border-radius: 10px;
+    box-shadow: 0px 15px 30px rgba(0,0,0,0.4);
+}
+
+.bank-wrapper:hover .bank-slots-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+/* =========================================
+   6. BUTTONS
+   ========================================= */
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
+    margin: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Make the End Turn button visually distinct */
+#end-turn {
+    background-color: #e74c3c !important;
+}
+
+#end-turn:hover {
+    background-color: #c0392b !important;
+}

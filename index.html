@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kwaad raki</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+   <h1 id="status-msg">Game Status: Waiting to start...</h1>
+    <h2 id="turn-indicator" style="text-align: center; color: #2c3e50;">Player 1's Turn</h2>
+    
+    <div id="game-board">
+        <div class="board-section">
+            <div class="building-zone" id="building-zone">
+                <div class="building-pocket" id="pocket1" ondragover="allowDrop(event)" ondrop="dropCard(event)">Pile 1</div>
+                <div class="building-pocket" id="pocket2" ondragover="allowDrop(event)" ondrop="dropCard(event)">Pile 2</div>
+                <div class="building-pocket" id="pocket3" ondragover="allowDrop(event)" ondrop="dropCard(event)">Pile 3</div>
+                <div class="building-pocket" id="pocket4" ondragover="allowDrop(event)" ondrop="dropCard(event)">Pile 4</div>
+                <div class="building-pocket" id="pocket5" ondragover="allowDrop(event)" ondrop="dropCard(event)">Pile 5</div>
+                <div class="building-pocket" id="pocket6" ondragover="allowDrop(event)" ondrop="dropCard(event)">Pile 6</div>
+            </div>
+            <div class="building-zone" id="starting-pile">Shared Building Area</div>
+            <div> 
+                <button id="draw-pile" onclick="drawCard()">Draw Pile</button>
+                <br><br>
+                <button id="end-turn" onclick="endTurn()" style="background-color: #e74c3c; color: white; padding: 10px; border-radius: 5px; font-weight: bold;">End Turn</button>
+            </div>
+            <div>
+                <button id="shuffledeck" onclick="startGame()">Start Game</button>
+            </div>
+        </div>
+        
+    <div class="board-section2">
+        <div class="pile-container">
+            <h3>Stockpile (7 Cards)</h3>
+            <div id="stockpile-card" draggable="true" ondragstart="dragStart(event)">Top Card</div>
+        </div>
+
+        <div class="reserve-container">
+            <h3>Your Bank</h3>
+            <div class="bank-wrapper" ondragover="allowDrop(event)" ondrop="dropCard(event)">
+                <div id="bank-cover">Hover to View<br>Bank Piles</div>
+                
+                <div class="bank-slots-container">
+                    <div class="bank-slot" id="bank1" draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)" ondrop="dropCard(event)">Empty</div>
+                    <div class="bank-slot" id="bank2" draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)" ondrop="dropCard(event)">Empty</div>
+                    <div class="bank-slot" id="bank3" draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)" ondrop="dropCard(event)">Empty</div>
+                    <div class="bank-slot" id="bank4" draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)" ondrop="dropCard(event)">Empty</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="player-hand-container">
+            <h3>Your Hand</h3>
+            <div id="player-hand">
+    <div id="card1" draggable="true" ondragstart="dragStart(event)">Card 1</div>
+    <div id="card2" draggable="true" ondragstart="dragStart(event)">Card 2</div>
+    <div id="card3" draggable="true" ondragstart="dragStart(event)">Card 3</div>
+    <div id="card4" draggable="true" ondragstart="dragStart(event)">Card 4</div>
+    <div id="card5" draggable="true" ondragstart="dragStart(event)">Card 5</div>
+</div>
+        </div>
+    </div>
+    </div> 
+    <footer>
+        <p>&copy; 2026 DWJ</p>
+    </footer>
+    <script src="index.js"></script>
+</body>
+</html>
